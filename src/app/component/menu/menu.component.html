@@ -1,0 +1,59 @@
+<h1>Menus</h1>
+
+<script>
+    var myModal = document.getElementById('myModal')
+    var myInput = document.getElementById('myInput')
+    
+    myModal.addEventListener('shown.bs.modal', function () {
+      myInput.focus()
+    })
+</script>
+
+<table class="center">
+    <thead>
+        <tr>
+            <th style="text-align: center">Nom</th>
+            <th style="text-align: center">Prix</th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+            <th style="text-align: center"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let box of boxs"> 
+            <td style="text-align: center">{{ box.nom }}</td>
+            <td style="text-align: center">{{ box.prix }} €</td>
+            <td><img src="{{apiImageUrl}}{{box.image}}"></td>
+            <td><button type="button" class="btn btn-success mb-2" (click)="ajouterBox(box)">Ajouter</button></td>
+            <td>
+                <a class="btn btn-secondary mb-2" href="#popup{{ box.id }}">D&eacute;tails</a>
+                <div id="popup{{ box.id }}" class="overlay">
+                    <div class="popup">
+                        <h2>Détails de la box : {{ box.id }}</h2>
+                        <a class="close" href="#">&times;</a>
+                        <ul>Nom : {{ box.nom }} </ul>
+                        <ul>Pieces : {{ box.pieces }} </ul>
+                        <ul>Prix : {{ box.prix }} € </ul>
+                        <ul>Aliments :</ul>
+                        <ul>
+                            <li *ngFor="let aliment of box.aliments">{{ aliment.nom }} ({{ aliment.quantite }})</li>
+                        </ul>
+                        <ul>Saveurs : </ul>
+                        <ul>
+                            <li *ngFor="let saveur of box.saveurs">{{ saveur }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<tfoot>
+    <div style="font-weight:bold;">Nombre de box : {{ boxs.length }}</div>
+</tfoot>
+
+
+<ng-container *ngIf="boxs.length === 0">
+    <p>Pas de box dans le menu !</p>
+</ng-container> 

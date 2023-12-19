@@ -1,0 +1,28 @@
+<h1>Panier</h1>
+
+<table>
+  <thead>
+    <th style="text-align: center">Quantit&eacute;</th>
+    <th style="text-align: center">Nom</th>
+    <th style="text-align: center">Prix</th>
+    <th style="text-align: center">Ajouter</th>
+    <th style="text-align: center">Retirer</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let article of panier">
+      <td style="text-align: center">{{ article.quantite}}</td>
+      <td style="text-align: center">{{ article.nom }}</td>
+      <td style="text-align: center">{{ article.prix }} €</td>
+      <td style="text-align: center"><img src="../assets/images/plus.jpg" style="width:40px; height:auto;" (click)="ajouterQuantite(article)"></td>
+      <td style="text-align: center"><img src="../assets/images/moins.jpg" style="width:40px; height:auto;" (click)="diminuerQuantite(article)"></td>
+    </tr>
+  </tbody>
+</table>
+
+  <td colspan="2"><button type="button" class="btn btn-success mb-2">Valider</button></td>
+  <span>&nbsp;</span>
+  <td><b>Total : {{ getTotal() }} €</b></td>  
+
+<ng-container *ngIf="panier.length === 0">
+  <p>Panier vide !</p>
+</ng-container>
